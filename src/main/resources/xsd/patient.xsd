@@ -1,15 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
            targetNamespace="http://com.itq/medCard"
-           xmlns:tns="http://com.itq/medCard"
            elementFormDefault="qualified">
 
     <xs:element name="PatientRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="fullName" type="xs:string"/>
-                <xs:element name="age" type="xs:int"/>
-                <xs:element name="gender" type="xs:string"/>
+                <xs:element name="age">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:integer">
+                            <xs:minExclusive value="0"/>
+                            <xs:maxInclusive value="2"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="gender">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="Female"/>
+                            <xs:enumeration value="Male"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="email">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="[^@]+@[^.]+\..+"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="curp">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="^[A-Z]{4}\d{6}[HM]{1}[A-Z]{2}[B-DF-HJ-NP-TV-Z]{3}\d{3}$"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="direction">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="street" type="xs:string"/>
+
+                            <xs:element name="outerNumber" type="xs:string"/>
+
+                            <xs:element name="interiorNumber" type="xs:string" minOccurs="0"/>
+
+                            <xs:element name="cologne" type="xs:string"/>
+
+                            <xs:element name="zipCode">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:pattern value="[0-9]{5}"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+
+                            <xs:element name="city" type="xs:string"/>
+
+                            <xs:element name="state" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
