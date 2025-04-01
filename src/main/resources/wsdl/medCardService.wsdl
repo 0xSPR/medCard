@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://com.itq/medCard"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  targetNamespace="http://com.itq/medCard">
+
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://com.itq/medCard">
+            <xsd:import namespace="http://com.itq/medCard" schemaLocation="../xsd/patient.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="registerPatientRequest">
+        <wsdl:part name="parameters" element="tns:PatientRequest"/>
+    </wsdl:message>
+
+    <wsdl:message name="registerPatientResponse">
+        <wsdl:part name="parameters" element="tns:PatientResponse"/>
+    </wsdl:message>
+
+    <wsdl:portType name="MedCardService">
+        <wsdl:operation name="registerPatient">
+            <wsdl:input message="tns:registerPatientRequest"/>
+            <wsdl:output message="tns:registerPatientResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="MedCardServiceSoapBinding" type="tns:MedCardService">
+        <soap:binding style="document"
+                      transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="registerPatient">
+            <soap:operation soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="MedCardService">
+        <wsdl:port name="MedCardServicePort" binding="tns:MedCardServiceSoapBinding">
+            <soap:address location="http://localhost:8080/ws/medCard"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
